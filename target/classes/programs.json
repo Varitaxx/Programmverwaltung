@@ -1,0 +1,115 @@
+[ {
+  "name" : "LibreOffice Writer",
+  "purposes" : [ "TEXTVERARBEITUNG" ],
+  "description" : "Bestes Textverarbeitungsprogramm",
+  "operatingSystem" : "Windows, Linux, Android",
+  "alternatives" : [ "Word" ]
+}, {
+  "name" : "IntelliJ Community",
+  "purposes" : [ "ENTWICKLUNG" ],
+  "description" : "Das Beste IDE für Entwicklung",
+  "operatingSystem" : "Linux, Windows, MacOS",
+  "alternatives" : [ "VS Code", "Eclipse" ]
+}, {
+  "name" : "LibreOffice Calc",
+  "purposes" : [ "TABELLENKALKULATION" ],
+  "description" : "Sehr gutes Tabellenkalkulationsprogramm",
+  "operatingSystem" : "Windows, Linux, Android",
+  "alternatives" : [ "Excel" ]
+}, {
+  "name" : "VS Code",
+  "purposes" : [ "ENTWICKLUNG" ],
+  "description" : "Gute Entwicklungsumgebung",
+  "operatingSystem" : "Windows, Linux, macOS, Android, iOS",
+  "alternatives" : [ "IntelliJ Community", "Eclipse" ]
+}, {
+  "name" : "Eclipse",
+  "purposes" : [ "ENTWICKLUNG" ],
+  "description" : "Passable Entwicklungsumgebung",
+  "operatingSystem" : "Windows, Linux, macOS, Android, iOS",
+  "alternatives" : [ "IntelliJ Community", "VS Code" ]
+}, {
+  "name" : "Thunderbird",
+  "purposes" : [ "EMAIL_FTP" ],
+  "description" : "Email-Client",
+  "operatingSystem" : "Windows, Linux, macOS, Android, iOS",
+  "alternatives" : [ "Outlook" ]
+}, {
+  "name" : "FileZilla",
+  "purposes" : [ "EMAIL_FTP" ],
+  "description" : "Klasse FTP-Client",
+  "operatingSystem" : "Linux, Windows",
+  "alternatives" : [ "CuteFTP" ]
+}, {
+  "name" : "DBeaver",
+  "purposes" : [ "DATENBANK" ],
+  "description" : "Überragendes Datenbank Tool",
+  "operatingSystem" : "Linux, Windows",
+  "alternatives" : [ "pgAdmin4" ]
+}, {
+  "name" : "LibreOffice Impress",
+  "purposes" : [ "PRÄSENTATION" ],
+  "description" : "Ideal geeignet für Präsentationen",
+  "operatingSystem" : "Windows, Linux, macOS, iOS",
+  "alternatives" : [ "Powerpoint" ]
+}, {
+  "name" : "pgAdmin4",
+  "purposes" : [ "DATENBANK" ],
+  "description" : "Datenbank-Tool",
+  "operatingSystem" : "iOS",
+  "alternatives" : [ "DBeaver" ]
+}, {
+  "name" : "Firefox",
+  "purposes" : [ "INTERNET" ],
+  "description" : "Toller Browser",
+  "operatingSystem" : "Windows, Linux, Android",
+  "alternatives" : [ "Vivaldi", "Brave", "Chrome" ]
+}, {
+  "name" : "Vivaldi",
+  "purposes" : [ "INTERNET" ],
+  "description" : "Klasse Browser mit Rubriken",
+  "operatingSystem" : "Linux, Windows",
+  "alternatives" : [ "Firefox", "Brave", "Chrome" ]
+}, {
+  "name" : "Brave",
+  "purposes" : [ "INTERNET" ],
+  "description" : "Sehr guter Browser",
+  "operatingSystem" : "Linux, Windows",
+  "alternatives" : [ "Firefox", "Vivaldi", "Chrome" ]
+}, {
+  "name" : "Outlook",
+  "purposes" : [ "EMAIL_FTP" ],
+  "description" : "EMail-Client",
+  "operatingSystem" : "Windows, macOS",
+  "alternatives" : [ "Thunderbird" ]
+}, {
+  "name" : "GIMP",
+  "purposes" : [ "GRAFIK" ],
+  "description" : "Bekanntes Grafikprogramm",
+  "operatingSystem" : "Windows, Linux",
+  "alternatives" : [ "Photoshop" ]
+}, {
+  "name" : "Corel PhotoImpact",
+  "purposes" : [ "GRAFIK" ],
+  "description" : "Altes Grafikprogramm",
+  "operatingSystem" : "Windows, macOS",
+  "alternatives" : [ ]
+}, {
+  "name" : "Photoshop",
+  "purposes" : [ "GRAFIK" ],
+  "description" : "Referenzprogramm für Grafikbearbeitung",
+  "operatingSystem" : "Windows, macOS",
+  "alternatives" : [ "GIMP" ]
+}, {
+  "name" : "EMacs",
+  "purposes" : [ "ENTWICKLUNG" ],
+  "description" : "Urlater Textbasierter Editor",
+  "operatingSystem" : "Windows, Linux, macOS",
+  "alternatives" : [ ]
+}, {
+  "name" : "LibreOffice Draw",
+  "purposes" : [ "GRAFIK" ],
+  "description" : "Kann ich noch nichts zu sagen",
+  "operatingSystem" : "Windows, Linux, macOS",
+  "alternatives" : [ ]
+} ]
