@@ -114,7 +114,7 @@
                             <winMenu>true</winMenu>
                             <winDirChooser>true</winDirChooser>
                             <winShortcut>true</winShortcut>
-                            <winPerUserInstall>false</winPerUserInstall>
+                            <winPerUserInstall>true</winPerUserInstall>
                             <icon>${project.basedir}/src/main/resources/icons/app-icon.ico</icon>
                             <javaOptions>
                                 <javaOption>-Dfile.encoding=UTF-8</javaOption>
