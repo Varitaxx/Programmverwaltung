@@ -1,0 +1,84 @@
+name: Build and Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        include:
+          - os: windows-latest
+            profile: windows-installer
+            artifact: ProgrammVerwaltung-*.msi
+            artifact_name: ProgrammVerwaltung-Windows.msi
+          - os: ubuntu-latest
+            profile: linux-installer
+            artifact: programmverwaltung_*.deb
+            artifact_name: ProgrammVerwaltung-Linux.deb
+          - os: macos-latest
+            profile: mac-installer
+            artifact: ProgrammVerwaltung-*.dmg
+            artifact_name: ProgrammVerwaltung-macOS.dmg
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build with Maven
+        run: mvn clean package -P${{ matrix.profile }}
+
+      - name: Find installer file
+        id: find-installer
+        shell: bash
+        run: |
+          INSTALLER=$(find target/dist -name "${{ matrix.artifact }}" -type f | head -n 1)
+          echo "installer=$INSTALLER" >> $GITHUB_OUTPUT
+          echo "Found installer: $INSTALLER"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact_name }}
+          path: ${{ steps.find-installer.outputs.installer }}
+          if-no-files-found: error
+
+  release:
+    name: Create Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/')
+    
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: installers
+
+      - name: Display structure of downloaded files
+        run: ls -R installers
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            installers/ProgrammVerwaltung-Windows.msi/*
+            installers/ProgrammVerwaltung-Linux.deb/*
+            installers/ProgrammVerwaltung-macOS.dmg/*
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

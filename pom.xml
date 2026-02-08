@@ -6,12 +6,19 @@
 
     <groupId>eu.asgardschmiede</groupId>
     <artifactId>ProgrammVerwaltung</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+
+    <name>ProgrammVerwaltung</name>
+    <description>Verwaltung von Programmen und deren Zwecke</description>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <main.class>eu.asgardschmiede.programmverwaltung.Main</main.class>
+        <app.name>ProgrammVerwaltung</app.name>
+        <app.version>1.0.0</app.version>
     </properties>
 
     <dependencies>
@@ -36,23 +43,168 @@
 
     <build>
         <plugins>
+            <!-- Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>3.11.0</version>
                 <configuration>
                     <source>21</source>
                     <target>21</target>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+
+            <!-- Resources Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.3.1</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+
+            <!-- Shade Plugin - Erstellt ein Fat JAR mit allen Dependencies -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>${main.class}</mainClass>
+                                </transformer>
+                            </transformers>
+                            <finalName>${project.artifactId}-${project.version}-shaded</finalName>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+
+    <profiles>
+        <!-- Windows Installer -->
+        <profile>
+            <id>windows-installer</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.panteleyev</groupId>
+                        <artifactId>jpackage-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <configuration>
+                            <name>${app.name}</name>
+                            <appVersion>${app.version}</appVersion>
+                            <vendor>Asgardschmiede</vendor>
+                            <destination>${project.build.directory}/dist</destination>
+                            <input>${project.build.directory}</input>
+                            <mainJar>${project.artifactId}-${project.version}-shaded.jar</mainJar>
+                            <mainClass>${main.class}</mainClass>
+                            <type>MSI</type>
+                            <winMenu>true</winMenu>
+                            <winDirChooser>true</winDirChooser>
+                            <winShortcut>true</winShortcut>
+                            <winPerUserInstall>false</winPerUserInstall>
+                            <icon>${project.basedir}/src/main/resources/icons/app-icon.ico</icon>
+                            <javaOptions>
+                                <javaOption>-Dfile.encoding=UTF-8</javaOption>
+                            </javaOptions>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>win-jpackage</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jpackage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- Linux Installer -->
+        <profile>
+            <id>linux-installer</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.panteleyev</groupId>
+                        <artifactId>jpackage-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <configuration>
+                            <name>${app.name}</name>
+                            <appVersion>${app.version}</appVersion>
+                            <vendor>Asgardschmiede</vendor>
+                            <destination>${project.build.directory}/dist</destination>
+                            <input>${project.build.directory}</input>
+                            <mainJar>${project.artifactId}-${project.version}-shaded.jar</mainJar>
+                            <mainClass>${main.class}</mainClass>
+                            <type>DEB</type>
+                            <linuxShortcut>true</linuxShortcut>
+                            <icon>${project.basedir}/src/main/resources/icons/app-icon.png</icon>
+                            <javaOptions>
+                                <javaOption>-Dfile.encoding=UTF-8</javaOption>
+                            </javaOptions>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>linux-jpackage</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jpackage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- macOS Installer -->
+        <profile>
+            <id>mac-installer</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.panteleyev</groupId>
+                        <artifactId>jpackage-maven-plugin</artifactId>
+                        <version>1.6.0</version>
+                        <configuration>
+                            <name>${app.name}</name>
+                            <appVersion>${app.version}</appVersion>
+                            <vendor>Asgardschmiede</vendor>
+                            <destination>${project.build.directory}/dist</destination>
+                            <input>${project.build.directory}</input>
+                            <mainJar>${project.artifactId}-${project.version}-shaded.jar</mainJar>
+                            <mainClass>${main.class}</mainClass>
+                            <type>DMG</type>
+                            <icon>${project.basedir}/src/main/resources/icons/app-icon.icns</icon>
+                            <javaOptions>
+                                <javaOption>-Dfile.encoding=UTF-8</javaOption>
+                            </javaOptions>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>mac-jpackage</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>jpackage</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
