@@ -25,13 +25,13 @@ public class ProgramService {
 
     public ProgramService() {
         mapper.enable(SerializationFeature.INDENT_OUTPUT); // Pretty Printing aktivieren
-        
+
         // Plattformübergreifenden Dateipfad ermitteln
         this.dataFilePath = getDataFilePath();
-        
+
         // Stelle sicher, dass das Verzeichnis existiert
         ensureDataDirectoryExists();
-        
+
         // Lade die Programme
         loadPrograms(dataFilePath);
     }
@@ -45,7 +45,7 @@ public class ProgramService {
     private String getDataFilePath() {
         String userHome = System.getProperty("user.home");
         String os = System.getProperty("os.name").toLowerCase();
-        
+
         Path dataDir;
         if (os.contains("win")) {
             // Windows: AppData\Local
@@ -57,7 +57,7 @@ public class ProgramService {
             // Linux: ~/.local/share
             dataDir = Paths.get(userHome, ".local", "share", APP_NAME);
         }
-        
+
         return dataDir.resolve(DATA_FILE_NAME).toString();
     }
 
@@ -101,7 +101,7 @@ public class ProgramService {
         try {
             // Stelle sicher, dass das Verzeichnis existiert
             ensureDataDirectoryExists();
-            
+
             mapper.writeValue(file, programs);
             System.out.println("Daten erfolgreich gespeichert in " + dataFilePath + ". Anzahl: " + programs.size());
         } catch (IOException e) {
@@ -141,12 +141,12 @@ public class ProgramService {
         try {
             Path exportPath = Paths.get(filePath);
             Path parentDir = exportPath.getParent();
-            
+
             // Stelle sicher, dass das Zielverzeichnis existiert
             if (parentDir != null && !Files.exists(parentDir)) {
                 Files.createDirectories(parentDir);
             }
-            
+
             mapper.writeValue(new File(filePath), programs);
             System.out.println("Programme exportiert nach: " + filePath);
         } catch (IOException e) {
@@ -180,11 +180,11 @@ public class ProgramService {
                 .filter(p -> purposes == null || purposes.isEmpty() || p.purposes().containsAll(purposes))
                 .collect(Collectors.toList());
     }
-    
+
     /**
      * Gibt den aktuellen Dateipfad zurück (für Debugging).
      */
-    public String getDataFilePath() {
+    public String getCurrentDataFilePath() {
         return dataFilePath;
     }
 }
